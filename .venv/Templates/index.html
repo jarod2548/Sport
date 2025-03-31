@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+
+{%block head%}
+
+{%endblock%}
+
+{%block body%}
+<div class = "topOfWebsite">
+    {% if logged%}
+    <form action = "/logout">
+        <button class = "LogoutButton">Logout</button>
+    </form>
+    {% else %}
+    <form action = "/gotologin" method = "POST">
+        <button class = "GoToLoginButton">Login</button>
+    </form>
+    {% endif %}
+
+    <form action = "/home" method = "POST">
+        <button class = "HomeButton">Home</button>
+    </form>
+    <button class="ExpandSidebarButton" id="expandSidebar">
+        <img src="static/menu_24dp_1F1F1F_FILL0_wght400_GRAD0_opsz24 (1).svg" alt="Button Icon">
+    </button>
+</div>
+<div class = "sideOfWebsite" id = 'sidebar'>
+    <div class = "sideContent">
+        {% if logged%}
+            <form action = "/profile">
+                <button class = "ProfileButton">Profile</button>
+            </form>
+            <br>
+            <form action = "/planning" method = "POST">
+                <button class = "PlanningButton">Planning</button>
+            </form>
+            <br>
+            <form action = "/search" method = "POST">
+                <button class = "SearchButton">Zoek naar vrienden</button>
+            </form>
+            <br>
+            <form action = "/results" method = "POST">
+                <button class = "ResultButton">Laat resultaten zien</button>
+            </form>
+        {%else%}
+            <h1>You need to be logged in</h1>
+        {%endif%}
+    </div>
+</div>
+{%endblock%}

@@ -1,7 +1,4 @@
-from email.message import Message
-from email.policy import default
-from enum import unique
-from os.path import split
+
 
 from flask import Flask, render_template, url_for, request, redirect, flash, session, jsonify
 from flask_migrate import Migrate
@@ -11,7 +8,6 @@ from flask_jwt_extended import JWTManager, create_access_token, jwt_required, ge
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime, timezone
 
-from werkzeug.security import check_password_hash
 
 indexloc =r"C:\Users\jarod\PycharmProjects\Sportproject\.venv\Templates"
 app = Flask(__name__, template_folder=indexloc)

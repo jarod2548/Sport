@@ -1,0 +1,88 @@
+{% extends 'base.html' %}
+
+{%block head%}
+<script src="{{ url_for('static', filename='index.js') }}"></script>
+{%endblock%}
+
+{%block body%}
+<div class = "topOfWebsite">
+    {% if logged%}
+    <form action = "/logout">
+        <button class = "LogoutButton">Logout</button>
+    </form>
+    {% else %}
+    <form action = "/gotologin" method = "POST">
+        <button class = "GoToLoginButton">Login</button>
+    </form>
+    {% endif %}
+
+    <form action = "/home" method = "POST">
+        <button class = "HomeButton">Home</button>
+    </form>
+    <button class="ExpandSidebarButton" id="expandSidebar">
+        <img src="static/menu_24dp_1F1F1F_FILL0_wght400_GRAD0_opsz24 (1).svg" alt="Button Icon">
+    </button>
+</div>
+<div class = "sideOfWebsite" id = 'sidebar'>
+    <div class = "sideContent">
+        {% if logged%}
+            <form action = "/profile">
+                <button class = "ProfileButton">Profile</button>
+            </form>
+            <br>
+            <form action = "/planning" method = "POST">
+                <button class = "PlanningButton">Planning</button>
+            </form>
+            <br>
+            <form action = "/search" method = "POST">
+                <button class = "SearchButton">Zoek naar vrienden</button>
+            </form>
+            <br>
+            <form action = "/results" method = "POST">
+                <button class = "ResultButton">Laat resultaten zien</button>
+            </form>
+        {%else%}
+            <h1>You need to be logged in</h1>
+        {%endif%}
+    </div>
+</div>
+<div class = "loginForm" id = "Lgrid">
+    <label id = "loginTitle" for="loginTitle"><b>Login</b></label>
+    <form class = "Login" action = "/login" method = "POST">
+        <label id = "uname" for="uname"><b>Username</b></label>
+        <input class = "userinput" type = "text" name = "username" id = "Luserinput">
+
+        <label id ="pname" for="pname"><b>Password</b></label>
+        <input class ="passwordinput" type = "password" name = "password" id = "Lpasswordinput">
+
+        {%if loginError%}
+        <p id = "loginError">Er is geen gebruiker met deze inloggegevens</p>
+        {%endif%}
+
+        <button class = "LoginButton">Login</button>
+    </form>
+    <button class = "gotoregister" onclick="updateContent(2)">Register</button>
+
+</div>
+<div class = "RegisterForm" id = "Rgrid" style="display:none;" >
+    <label id = "loginTitle" for="loginTitle"><b>Register</b></label>
+    <form class = "Register" method = "POST" onsubmit="showRerror(event)">
+        <label id = "uname" for="uname"><b>Username</b></label>
+        <input class = "userinput" type = "text" name = "username" id = "Ruserinput" minlength="6" required>
+
+        <label id ="pname" for="pname"><b>Password</b></label>
+        <input class ="passwordinput" type = "password" name = "password" id = "Rpasswordinput" minlength="6" required>
+
+        <label id ="ename" for="ename"><b>Email</b></label>
+        <input class = "emailinput" type = "email" name = "email" id = "emailinput">
+
+        <p id = "rError"></p>
+
+        <button class = "RegisterButton">Register</button>
+    </form>
+    <button class = "gotoregister" onclick="updateContent(1)">GoBack</button>
+</div>
+
+
+
+{%endblock%}

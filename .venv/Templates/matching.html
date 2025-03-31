@@ -1,0 +1,92 @@
+{% extends 'base.html' %}
+{%block head%}
+<link rel = "stylesheet" href = "{{url_for('static', filename = 'css/matching.css')}}"/>
+{%endblock%}
+{%block body%}
+<div class = "topOfWebsite">
+    {% if logged%}
+    <form action = "/logout">
+        <button class = "LogoutButton">Logout</button>
+    </form>
+    {% else %}
+    <form action = "/gotologin" method = "POST">
+        <button class = "GoToLoginButton">Login</button>
+    </form>
+    {% endif %}
+
+    <form action = "/home" method = "POST">
+        <button class = "HomeButton">Home</button>
+    </form>
+    <button class="ExpandSidebarButton" id="expandSidebar">
+        <img src="static/menu_24dp_1F1F1F_FILL0_wght400_GRAD0_opsz24 (1).svg" alt="Button Icon">
+    </button>
+</div>
+<div class = "sideOfWebsite" id = 'sidebar'>
+    <div class = "sideContent">
+        {% if logged%}
+            <form action = "/profile">
+                <button class = "ProfileButton">Profile</button>
+            </form>
+            <br>
+            <form action = "/planning" method = "POST">
+                <button class = "PlanningButton">Planning</button>
+            </form>
+            <br>
+            <form action = "/search" method = "POST">
+                <button class = "SearchButton">Zoek naar vrienden</button>
+            </form>
+            <br>
+            <form action = "/results" method = "POST">
+                <button class = "ResultButton">Laat resultaten zien</button>
+            </form>
+        {%else%}
+            <h1>You need to be logged in</h1>
+        {%endif%}
+    </div>
+</div>
+<div class = "searchCanvas">
+    <div class = "SprofilePhoto"></div>
+    <label class = "SLprofileSport">Sport</label>
+    <div class = "SprofileSport"></div>
+    <label class = "SLprofileName">Naam</label>
+    <div class = "SprofileName"></div>
+    <label class = "SLprofileAge">Leeftijd</label>
+    <div class = "SprofileAge"></div>
+    <label class = "SLprofilePlace">Plaats</label>
+    <div class = "SprofilePlace"></div>
+    <p class = "SLprofileAvailable">Beschikbaarheid</p>
+    <div class = "SprofileAvailable">
+        <table class = "SAvailableTable">
+            <tr>
+                <th>Dagen</th>
+                <th>Maandag</th>
+                <th>Dinsdag</th>
+                <th>Woensdag</th>
+                <th>Donderdag</th>
+                <th>Vrijdag</th>
+                <th>Zaterdag</th>
+                <th>Zondag</th>
+            </tr>
+            <tr>
+                <th>Tijden</th>
+                <td class = "MondayTime">No data</td>
+                <td class = "TuesdayTime">No data</td>
+                <td class = "WednesdayTime">No data</td>
+                <td class = "ThursdayTime">No data</td>
+                <td class = "FridayTime">No data</td>
+                <td class = "SaturdayTime">No data</td>
+                <td class = "SundayTime">No data</td>
+            </tr>
+        </table>
+    </div>
+    <div class = "SprofileBio"></div>
+    <label class = "SLprofilePersonality">Persoonlijkheid</label>
+    <div class = "SprofilePersonality"></div>
+
+    <button class = "Approve" onclick= "searchNextPerson()">Stuur vriendschapsverzoek</button>
+    <button class = "Disapprove" onclick= "searchNextPerson()">Volgende persoon</button>
+</div>
+
+<div id="values-data" style="display:none">{{ searches | tojson }}</div>
+<script src="{{ url_for('static', filename='matching.js') }}"></script>
+{%endblock%}

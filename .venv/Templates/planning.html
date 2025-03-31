@@ -1,0 +1,94 @@
+{% extends 'base.html' %}
+{%block head%}
+{%endblock%}
+{%block body%}
+<div class = "topOfWebsite">
+    {% if logged%}
+    <form action = "/logout">
+        <button class = "LogoutButton">Logout</button>
+    </form>
+    {% else %}
+    <form action = "/gotologin" method = "POST">
+        <button class = "GoToLoginButton">Login</button>
+    </form>
+    {% endif %}
+
+    <form action = "/home" method = "POST">
+        <button class = "HomeButton">Home</button>
+    </form>
+    <button class="ExpandSidebarButton" id="expandSidebar">
+        <img src="static/menu_24dp_1F1F1F_FILL0_wght400_GRAD0_opsz24 (1).svg" alt="Button Icon">
+    </button>
+</div>
+<div class = "sideOfWebsite" id = 'sidebar'>
+    <div class = "sideContent">
+        {% if logged%}
+            <form action = "/profile">
+                <button class = "ProfileButton">Profile</button>
+            </form>
+            <br>
+            <form action = "/planning" method = "POST">
+                <button class = "PlanningButton">Planning</button>
+            </form>
+            <br>
+            <form action = "/search" method = "POST">
+                <button class = "SearchButton">Zoek naar vrienden</button>
+            </form>
+            <br>
+            <form action = "/results" method = "POST">
+                <button class = "ResultButton">Laat resultaten zien</button>
+            </form>
+        {%else%}
+            <h1>You need to be logged in</h1>
+        {%endif%}
+    </div>
+</div>
+<div class = "planning">
+    <table>
+        <tr>
+            <th>Planner</th>
+            <th>Monday</th>
+            <th>Tuesday</th>
+            <th>Wednesday</th>
+            <th>Thursday</th>
+            <th>Friday</th>
+            <th>Saturday</th>
+            <th>Sunday</th>
+        </tr>
+        <tr>
+            <th>Ochtend</th>
+            <td><button class="addInputMonday addOchtend">Voeg toe</button></td>
+            <td><button class="addInputTuesday addOchtend">Voeg toe</button></td>
+            <td><button class="addInputWednesday addOchtend">Voeg toe</button></td>
+            <td><button class="addInputThursday addOchtend">Voeg toe</button></td>
+            <td><button class="addInputFriday addOchtend">Voeg toe</button></td>
+            <td><button class="addInputSaturday addOchtend">Voeg toe</button></td>
+            <td><button class="addInputSunday addOchtend">Voeg toe</button></td>
+        </tr>
+        <tr>
+            <th>Middag</th>
+            <td><button class="addInputMonday addMiddag">Voeg toe</button></td>
+            <td><button class="addInputTuesday addMiddag">Voeg toe</button></td>
+            <td><button class="addInputWednesday addMiddag">Voeg toe</button></td>
+            <td><button class="addInputThursday addMiddag">Voeg toe</button></td>
+            <td><button class="addInputFriday addMiddag">Voeg toe</button></td>
+            <td><button class="addInputSaturday addMiddag">Voeg toe</button></td>
+            <td><button class="addInputSunday addMiddag">Voeg toe</button></td>
+        </tr>
+        <tr>
+            <th>Avond</th>
+            <td><button class="addInputMonday addAvond">Voeg toe</button></td>
+            <td><button class="addInputTuesday addAvond">Voeg toe</button></td>
+            <td><button class="addInputWednesday addAvond">Voeg toe</button></td>
+            <td><button class="addInputThursday addAvond">Voeg toe</button></td>
+            <td><button class="addInputFriday addAvond">Voeg toe</button></td>
+            <td><button class="addInputSaturday addAvond">Voeg toe</button></td>
+            <td><button class="addInputSunday addAvond">Voeg toe</button></td>
+        </tr>
+    </table>
+</div>
+<div class = "saveProfile">
+    <button onclick= "savePlanning()">Save data</button>
+</div>
+<script src="{{ url_for('static', filename='planning.js') }}"></script>
+{%endblock%}

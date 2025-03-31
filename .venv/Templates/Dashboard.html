@@ -1,0 +1,171 @@
+{% extends 'base.html' %}
+
+{%block head%}
+
+{%endblock%}
+
+{%block body%}
+<div class = "topOfWebsite">
+    {% if logged%}
+    <form action = "/logout">
+        <button class = "LogoutButton">Logout</button>
+    </form>
+    {% else %}
+    <form action = "/gotologin" method = "POST">
+        <button class = "GoToLoginButton">Login</button>
+    </form>
+    {% endif %}
+
+    <form action = "/home" method = "POST">
+        <button class = "HomeButton">Home</button>
+    </form>
+    <button class="ExpandSidebarButton" id="expandSidebar">
+        <img src="static/menu_24dp_1F1F1F_FILL0_wght400_GRAD0_opsz24 (1).svg" alt="Button Icon">
+    </button>
+</div>
+<div class = "sideOfWebsite" id = 'sidebar'>
+    <div class = "sideContent">
+        {% if logged%}
+            <form action = "/profile">
+                <button class = "ProfileButton">Profile</button>
+            </form>
+            <br>
+            <form action = "/planning" method = "POST">
+                <button class = "PlanningButton">Planning</button>
+            </form>
+            <br>
+            <form action = "/search" method = "POST">
+                <button class = "SearchButton">Zoek naar vrienden</button>
+            </form>
+            <br>
+            <form action = "/results" method = "POST">
+                <button class = "ResultButton">Laat resultaten zien</button>
+            </form>
+        {%else%}
+            <h1>You need to be logged in</h1>
+        {%endif%}
+    </div>
+</div>
+<form action ="/save_profile" method = "POST" class = "profileCanvas">
+    <div class = "profilePhoto"></div>
+
+    <label id = "profileBioL">Biografie Max(200 words)</label>
+    <textarea name = "profileBioL" id = "profileBioInput" value = "{{account.Bio}}"></textarea>
+
+    <label id = "profileNameL">Naam</label>
+    <input type = "text" name = "profileNameL" id = "profileNameInput" value = "{{account.name}}">
+
+    <label id = "profileAgeL">Geboortdatum</label>
+    <input type = "date" name = "profileAgeL" id = "profileAgeInput" value = "{{account.age}}">
+
+    <label id = "profilePlaceL">Plaats</label>
+    <input list = "places" name = "profilePlaceL" id = "profilePlaceInput" value = "{{account.place}}">
+    <datalist id = "places">
+        <option value = "Noord-Brabant"></option>
+        <option value = "Limburg"></option>
+        <option value = "Zuid-Holland"></option>
+        <option value = "Noord-Holland"></option>
+        <option value = "Zeeland"></option>
+        <option value = "Flevoland"></option>
+        <option value = "Gelderland"></option>
+        <option value = "Overijssel"></option>
+        <option value = "Drenthe"></option>
+        <option value = "Groningen"></option>
+        <option value = "Friesland"></option>
+        <option value = "Utrecht"></option>
+    </datalist>
+
+    <label id = "profileSportL">Favoriete Sport</label>
+    <input type = "text" name = "profileSportL" id = "profileSportInput" value = "{{account.favorite_sport}}">
+
+    <label id = "profileAvailableL">Beschikbaarheid</label>
+    <div id = "profileAvailableCheck">
+        <label>
+            <input class = "showDay" type="checkbox" {% if account and 'Monday' in days %}checked{% endif %}
+            data-target = "Monday" name="days" value="Monday"> Maandag
+        </label>
+        <label>
+            <input class = "showDay" type="checkbox" {% if account and 'Tuesday' in days %}checked{% endif %}
+            data-target = "Tuesday" name="days" value="Tuesday"> Dinsdag
+        </label>
+        <label>
+            <input class = "showDay" type="checkbox" {% if account and 'Wednesday' in days %}checked{% endif %}
+            data-target = "Wednesday" name="days" value="Wednesday"> Woensdag
+        </label>
+        <label>
+            <input class = "showDay" type="checkbox" {% if account and 'Thursday' in days %}checked{% endif %}
+            data-target = "Thursday" name="days" value="Thursday"> Donderdag
+        </label>
+        <label>
+            <input class = "showDay" type="checkbox" {% if account and 'Friday' in days %}checked{% endif %}
+            data-target = "Friday" name="days" value="Friday"> Vrijdag
+        </label>
+        <label>
+            <input class = "showDay" type="checkbox" {% if account and 'Saturday' in days %}checked{% endif %}
+            data-target = "Saturday" name="days" value="Saturday"> Zaterdag
+        </label>
+        <label>
+            <input class = "showDay" type="checkbox" {% if account and 'Sunday' in days %}checked{% endif %}
+            data-target = "Sunday" name="days" value="Sunday"> Zondag
+        </label>
+
+
+    </div>
+    <div id = "profileAvailableInput">
+        <div id = "Monday" style="display:none;">
+                <input type = "time" name = 'times' id = "Mondayinput1"
+                 {% if account and 'Monday' in days %} value = "{{times.get('Monday')[0]}}" {%endif%}>
+                <input type = "time" name = 'times' id = "Mondayinput2"
+                {% if account and 'Monday' in days %} value = "{{times.get('Monday')[1]}}" {%endif%}>
+        </div>
+        <div id = "Tuesday" style="display:none;">
+                <input type = "time" name = 'times' id = "Tuesdayinput1"
+                {% if account and 'Tuesday' in days %} value = "{{times.get('Tuesday')[0]}}" {%endif%}>
+                <input type = "time" name = 'times' id = "Tuesdayinput2"
+                {% if account and 'Tuesday' in days %} value = "{{times.get('Tuesday')[1]}}" {%endif%}>
+        </div>
+        <div id = "Wednesday" style="display:none;">
+                <input type = "time" name = 'times' id = "Wednesdayinput1"
+                {% if account and 'Wednesday' in days %} value = "{{times.get('Wednesday')[0]}}" {%endif%}>
+                <input type = "time" name = 'times' id = "Wednesdayinput2"
+                {% if account and 'Wednesday' in days %} value = "{{times.get('Wednesday')[1]}}" {%endif%}>
+        </div>
+        <div id = "Thursday" style="display:none;">
+                <input type = "time" name = 'times' id = "Thursdayinput1"
+                {% if account and 'Thursday' in days %} value = "{{times.get('Thursday')[0]}}" {%endif%}>
+                <input type = "time" name = 'times' id = "Thursdayinput2"
+                {% if account and 'Thursday' in days %} value = "{{times.get('Thursday')[1]}}" {%endif%}>
+        </div>
+        <div id = "Friday" style="display:none;">
+                <input type = "time" name = 'times' id = "Fridayinput1"
+                {% if account and 'Friday' in days %} value = "{{times.get('Friday')[0]}}" {%endif%}>
+                <input type = "time" name = 'times' id = "Fridayinput2"
+                {% if account and 'Friday' in days %} value = "{{times.get('Friday')[1]}}" {%endif%}>
+        </div>
+        <div id = "Saturday" style="display:none;">
+                <input type = "time" name = 'times' id = "Saturdayinput1"
+                {% if account and 'Saturday' in days %} value = "{{times.get('Saturday')[0]}}" {%endif%}>
+                <input type = "time" name = 'times' id = "Saturdayinput2"
+                {% if account and 'Saturday' in days %} value = "{{times.get('Saturday')[1]}}" {%endif%}>
+        </div>
+        <div id = "Sunday" style="display:none;">
+                <input type = "time" name = 'times' id = "Sundayinput1"
+                {% if account and 'Sunday' in days %} value = "{{times.get('Sunday')[0]}}" {%endif%}>
+                <input type = "time" name = 'times' id = "Sundayinput2"
+                {% if account and 'Sunday' in days %} value = "{{times.get('Sunday')[1]}}" {%endif%}>
+        </div>
+    </div>
+
+    <label id = "profilePersonalityL">Persoonlijkheid</label>
+    <input type = "text" name = "profilePersonalityL" id = "profilePersonalityInput" value = "{{account.personality}}">
+
+    <button type = "submit" class = "SaveProfileButton" id = "SaveProfile">
+        Sla profiel op
+    </button>
+
+</form>
+
+
+<script src="{{ url_for('static', filename='index.js') }}"></script>
+<script src="{{ url_for('static', filename='profile.js') }}"></script>
+{%endblock%}
