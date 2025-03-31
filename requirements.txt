@@ -24,7 +24,6 @@ platformdirs==4.3.7
 ptyprocess==0.7.0
 Pygments==2.19.1
 PyJWT==2.10.1
-pywin32==310
 requests==2.32.3
 sh==2.2.2
 SQLAlchemy==2.0.39
