@@ -9,8 +9,7 @@ from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime, timezone
 
 
-indexloc =r"C:\Users\jarod\PycharmProjects\Sportproject\.venv\Templates"
-app = Flask(__name__, template_folder=indexloc)
+app = Flask(__name__, template_folder='Templates')
 app.secret_key = 'your_secret_key'
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///test.db'
 db = SQLAlchemy(app)
